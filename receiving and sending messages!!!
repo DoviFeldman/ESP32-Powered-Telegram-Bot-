@@ -1,0 +1,71 @@
+(Me:
+wow thats so cool!!! 
+now write me code for it to receive messages too!!!!!)
+
+
+Heres ESP32 code to receive and send Telegram messages:
+
+```cpp
+#include <WiFi.h>
+#include <UniversalTelegramBot.h>
+#include <WiFiClientSecure.h>
+
+const char* ssid = "your-wifi";
+const char* password = "your-password";
+const char* botToken = "your-bot-token";
+
+WiFiClientSecure client;
+UniversalTelegramBot bot(botToken, client);
+
+unsigned long lastCheck = 0;
+const int checkDelay = 1000; // Check every second
+
+void handleNewMessages(int numNewMessages) {
+  for (int i = 0; i < numNewMessages; i++) {
+    String chat_id = String(bot.messages[i].chat_id);
+    String text = bot.messages[i].text;
+    String from_name = bot.messages[i].from_name;
+
+    Serial.println("Got: " + text);
+
+    if (text == "/start") {
+      bot.sendMessage(chat_id, "Hello " + from_name + "!", "");
+    }
+    else if (text == "/status") {
+      bot.sendMessage(chat_id, "ESP32 is running!", "");
+    }
+    else {
+      bot.sendMessage(chat_id, "You said: " + text, "");
+    }
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+  
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nConnected!");
+  
+  client.setInsecure(); // For testing only
+  bot.sendMessage("your-chat-id", "ESP32 is online!", "");
+}
+
+void loop() {
+  if (millis() - lastCheck > checkDelay) {
+    int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+    
+    if (numNewMessages) {
+      handleNewMessages(numNewMessages);
+    }
+    lastCheck = millis();
+  }
+}
+```
+
+**Install library:** Arduino IDE → Library Manager → "UniversalTelegramBot" by Brian Lough
+
+This uses long polling to check for new messages every second. Add your own commands in `handleNewMessages()`.
