@@ -1,0 +1,32 @@
+Yes! ESP32 can send Telegram messages perfectly. It has WiFi built-in, so you can make HTTPS requests to Telegram's API.
+
+**Simple example:**
+
+```cpp
+#include <WiFi.h>
+#include <HTTPClient.h>
+
+const char* ssid = "your-wifi";
+const char* password = "your-password";
+String botToken = "your-bot-token";
+String chatID = "your-chat-id";
+
+void sendTelegram(String message) {
+  HTTPClient http;
+  String url = "https://api.telegram.org/bot" + botToken + "/sendMessage?chat_id=" + chatID + "&text=" + message;
+  http.begin(url);
+  http.GET();
+  http.end();
+}
+
+void setup() {
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) delay(500);
+  
+  sendTelegram("ESP32 is online!");
+}
+```
+
+Use the **UniversalTelegramBot** library for cleaner code. You can send messages on events (button press, sensor readings, etc.) or on a timer - no cloud server needed!
+
+For receiving messages, the ESP32 can use long polling since it's always powered on (unlike GitHub Actions).
