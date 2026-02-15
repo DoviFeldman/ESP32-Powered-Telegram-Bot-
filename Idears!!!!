@@ -1,0 +1,32 @@
+wow i can also hook it up to an AI API or even connect all of it to a Clawdbot/moltbot and some motors and sensors and stuff! 
+i can also use the ESP32 to send myself emails and stuff.
+
+
+but this way i can aslo store and rearrange or save data or send data.
+
+like for my workout thing it can make a telegram bot chat that can save all their previous workout data and stuff as an easy way to access it without accessing its wifi or 
+visiting an IP addess page or something, but it still wont be able to connect to wifi in that way.
+
+maybe it can be cause if i setup the server on the ESP32 then i wont have access to it so people can put in their wifi and password and i wont have access to it! 
+epic! 
+or even other programs and stuff.
+
+i can set it that whenever theres a sensor read like someones walking or water low or wind speed or weather API or anything else it can just telegram send me a message.
+i can ask it to telegram send me a new zip code for it to update its weatherometer, or send and save calandarometer notifications.
+or just do general things.
+but yeah generally just wayy easier notifications than any other way of remote sensor readouts.
+or even bug reports or even just general progressess.
+
+I can also use it to controll a motor or a servo motor or the sailboat thing or even chatgpt thing
+or anything
+
+
+
+
+
+
+
+
+
+
+
